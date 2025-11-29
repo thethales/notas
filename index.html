@@ -1,1 +1,112 @@
-index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Diagnostics</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --accent-color: #00ff41; /* Terminal Green */
+            --error-color: #ff3333;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: "Courier New", Courier, monospace;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        main {
+            width: 100%;
+            max-width: 800px;
+            white-space: pre-wrap; /* Preserves formatting of the emergency text */
+            word-wrap: break-word;
+        }
+
+        h1 {
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            font-size: 1.2rem;
+            color: #888;
+            width: 100%;
+            margin-top: 0;
+        }
+
+        #status {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .success { color: var(--accent-color); }
+        .error { color: var(--error-color); }
+        .loading { color: #888; }
+
+        /* Generator / Admin Styles */
+        #generator {
+            margin-top: 50px;
+            border-top: 2px dashed #333;
+            padding-top: 20px;
+            width: 100%;
+            display: none; /* Hidden unless needed */
+        }
+
+        .show-generator { display: block !important; }
+
+        textarea, input {
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+            width: 100%;
+            font-family: inherit;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        button:hover { background: #444; }
+
+        code {
+            display: block;
+            background: #000;
+            border: 1px solid #333;
+            padding: 10px;
+            margin-top: 10px;
+            overflow-x: auto;
+            color: var(--accent-color);
+            font-size: 0.8rem;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1 id="header">SYSTEM DIAGNOSTICS PANEL</h1>
+        <div id="status" class="loading">Initializing...</div>
+        <div id="content"></div>
+    </main>
+<script>
+
+    function _0x277e(_0x20c9ae,_0x57d891){const _0x4f6468=_0x4f64();return _0x277e=function(_0x277eaf,_0x4147a4){_0x277eaf=_0x277eaf-0x1c3;let _0x402804=_0x4f6468[_0x277eaf];return _0x402804;},_0x277e(_0x20c9ae,_0x57d891);}const _0x2d41e1=_0x277e;(function(_0x38caa0,_0x84c850){const _0x69bf51=_0x277e,_0x348538=_0x38caa0();while(!![]){try{const _0x191eea=-parseInt(_0x69bf51(0x1c3))/0x1+-parseInt(_0x69bf51(0x1c6))/0x2+parseInt(_0x69bf51(0x1e3))/0x3+-parseInt(_0x69bf51(0x1f1))/0x4*(-parseInt(_0x69bf51(0x1f6))/0x5)+parseInt(_0x69bf51(0x1c7))/0x6+-parseInt(_0x69bf51(0x1ca))/0x7*(-parseInt(_0x69bf51(0x1e2))/0x8)+-parseInt(_0x69bf51(0x1ce))/0x9;if(_0x191eea===_0x84c850)break;else _0x348538['push'](_0x348538['shift']());}catch(_0x616f83){_0x348538['push'](_0x348538['shift']());}}}(_0x4f64,0xbffdf));function _0x4f64(){const _0x337c60=['crypto','content','encode','deriveKey','Decrypting...','length','140608zuYVTd','1652367yoGyAM','innerText','warn','className','value','key','getElementById','Diagnostics\x20Console','importKey','hidden','get','Copied\x20to\x20clipboard!','add','set','100YPxdYZ','encrypt','PBKDF2','decode','Self-test\x20mode:\x20valid\x20parameters\x20required.\x20Please\x20return\x20when\x20configuration\x20is\x20ready.','21680TRMTZT','raw','error','No\x20stored\x20data\x20was\x20found.<br>Use\x20the\x20form\x20below\x20to\x20add\x20a\x20new\x20string.','Decryption\x20failed.\x20Showing\x20decoy\x20content.','passInput','loading','getRandomValues','classList','This\x20area\x20is\x20a\x20temporary\x20testing\x20console.\x20Nothing\x20important\x20is\x20stored\x20here.','admin','262503oAbmex','blobOutput','decrypt','2908130qDeGdJ','6660738pbAiAP','SHA-256','Setup\x20Mode','406SIPOdT','slice','charCodeAt','true','2571777DaJtlt','show-generator','status','title','search','Please\x20fill\x20in\x20both\x20text\x20and\x20password.','subtle','byteLength','generator','+IDJpzaIznprVOt9jnfkHxKRC9euJKeqs31b95XFW0GBNr1VQ3bKWqIaBZhyi4i6CcvD1h3E5kOq42ekYpECm8SkG/jh/Wz1LEjM3IsIrfk14FlJnSJ1JFDvNDCuFssnRAyHW6oN4p97uGbBeSUk1QTJqgpKVyB2C0PE5pITK7ok1LKbc4oYlTXLYF7UbGmJgofj1TR0m0ZVvOcYwhxk9N8+/Ga1KHuId141q8nX8VCT8Hw9Blq2fprNFFMViNtI/pEF5ufMF2sAvamnKAR4idFIy8Qo99VtReDF8D8lFbE+SRA8PqMtRf8XpDZJzsPGlsFjYqlxPvgpsMKUFRsnoFfT9MliHzCLd5p97gdmNRA77P7OUgZmIbGHaI4eZZi0MSe5ZC1lLAifBFUZeC+ap58k9X0g14HWLp0NbAZJH4CYz29FqaN+rarLwe3hxFT26wdUj5vOXm2ofMNndRy7+t+pfycQVYDFmiUDZMl9vC/5nlrrDJbgQiO/RH+BvHKjPS9odI8//X9zxVv8doLLzwLED8etg3UmNJZIuZxDXtysBlAeuQkyyfhcSRw4TQ==','innerHTML','clipboard','AES-GCM','Diagnostics\x20playground.\x20Provide\x20the\x20expected\x20parameters\x20to\x20continue.'];_0x4f64=function(){return _0x337c60;};return _0x4f64();}const ENCRYPTED_DATA=_0x2d41e1(0x1d7),DECOY_TITLE=_0x2d41e1(0x1ea),DECOY_MESSAGE=_0x2d41e1(0x1ff),textEnc=new TextEncoder(),textDec=new TextDecoder(),str2buf=_0x546ee5=>textEnc[_0x2d41e1(0x1de)](_0x546ee5),buf2str=_0x266acb=>textDec[_0x2d41e1(0x1f4)](_0x266acb),buf2base64=_0x168b52=>btoa(String['fromCharCode'](...new Uint8Array(_0x168b52))),base642buf=_0x482493=>Uint8Array['from'](atob(_0x482493),_0x418d27=>_0x418d27[_0x2d41e1(0x1cc)](0x0));async function getKey(_0x42cd7d,_0x3dd6d3){const _0x234c25=_0x2d41e1,_0x55e352=await window['crypto'][_0x234c25(0x1d4)][_0x234c25(0x1eb)](_0x234c25(0x1f7),str2buf(_0x42cd7d),{'name':'PBKDF2'},![],[_0x234c25(0x1df)]);return window[_0x234c25(0x1dc)]['subtle']['deriveKey']({'name':_0x234c25(0x1f3),'salt':_0x3dd6d3,'iterations':0x186a0,'hash':_0x234c25(0x1c8)},_0x55e352,{'name':'AES-GCM','length':0x100},![],['encrypt',_0x234c25(0x1c5)]);}async function encryptData(_0x3140ad,_0x4bdcca){const _0x3e46b8=_0x2d41e1,_0x15c06a=window[_0x3e46b8(0x1dc)]['getRandomValues'](new Uint8Array(0x10)),_0x5aafde=window[_0x3e46b8(0x1dc)][_0x3e46b8(0x1fd)](new Uint8Array(0xc)),_0x4d7783=await getKey(_0x4bdcca,_0x15c06a),_0x90a8d5=await window[_0x3e46b8(0x1dc)][_0x3e46b8(0x1d4)][_0x3e46b8(0x1f2)]({'name':_0x3e46b8(0x1da),'iv':_0x5aafde},_0x4d7783,str2buf(_0x3140ad)),_0x4d062c=new Uint8Array(_0x15c06a[_0x3e46b8(0x1e1)]+_0x5aafde['length']+_0x90a8d5[_0x3e46b8(0x1d5)]);return _0x4d062c[_0x3e46b8(0x1f0)](_0x15c06a,0x0),_0x4d062c[_0x3e46b8(0x1f0)](_0x5aafde,_0x15c06a[_0x3e46b8(0x1e1)]),_0x4d062c[_0x3e46b8(0x1f0)](new Uint8Array(_0x90a8d5),_0x15c06a[_0x3e46b8(0x1e1)]+_0x5aafde[_0x3e46b8(0x1e1)]),buf2base64(_0x4d062c);}async function decryptData(_0x1d57d1,_0x49a06b){const _0x1a04f5=_0x2d41e1;try{const _0x141af7=base642buf(_0x1d57d1),_0x11680e=_0x141af7[_0x1a04f5(0x1cb)](0x0,0x10),_0xeaeb86=_0x141af7['slice'](0x10,0x1c),_0x2bc9db=_0x141af7[_0x1a04f5(0x1cb)](0x1c),_0x664821=await getKey(_0x49a06b,_0x11680e),_0x37152a=await window['crypto'][_0x1a04f5(0x1d4)][_0x1a04f5(0x1c5)]({'name':'AES-GCM','iv':_0xeaeb86},_0x664821,_0x2bc9db);return buf2str(_0x37152a);}catch(_0x4bf052){return console[_0x1a04f5(0x1f8)](_0x4bf052),null;}}const statusEl=document[_0x2d41e1(0x1e9)](_0x2d41e1(0x1d0)),contentEl=document[_0x2d41e1(0x1e9)](_0x2d41e1(0x1dd)),generatorEl=document[_0x2d41e1(0x1e9)](_0x2d41e1(0x1d6));function showDecoyState(_0x3c017b=DECOY_MESSAGE){const _0x14165c=_0x2d41e1;statusEl['innerText']='System\x20Test\x20Mode',statusEl[_0x14165c(0x1e6)]=_0x14165c(0x1fc),contentEl[_0x14165c(0x1e4)]=_0x3c017b,document['title']=DECOY_TITLE;}async function init(){const _0x430f87=_0x2d41e1;if(!ENCRYPTED_DATA){statusEl[_0x430f87(0x1e4)]=_0x430f87(0x1c9),statusEl['className']='',contentEl[_0x430f87(0x1d8)]=_0x430f87(0x1f9),generatorEl['classList'][_0x430f87(0x1ef)](_0x430f87(0x1cf));return;}const _0x18764f=new URLSearchParams(window['location'][_0x430f87(0x1d2)]),_0x332642=_0x18764f[_0x430f87(0x1ed)](_0x430f87(0x1e8));if(!_0x332642){showDecoyState(_0x430f87(0x1db));if(_0x18764f['get'](_0x430f87(0x200))===_0x430f87(0x1cd))generatorEl[_0x430f87(0x1fe)]['add'](_0x430f87(0x1cf));return;}statusEl['innerText']=_0x430f87(0x1e0);const _0x2a48f9=await decryptData(ENCRYPTED_DATA,_0x332642);_0x2a48f9?(statusEl[_0x430f87(0x1e4)]='Content\x20Loaded',statusEl[_0x430f87(0x1e6)]='success',contentEl[_0x430f87(0x1e4)]=_0x2a48f9,document[_0x430f87(0x1d1)]='System\x20Diagnostics\x20(Live)'):(console[_0x430f87(0x1e5)](_0x430f87(0x1fa)),showDecoyState(_0x430f87(0x1f5)));}async function generateBlob(){const _0x2c8cd1=_0x2d41e1,_0x2e3ab6=document['getElementById']('plainInput')['value'],_0x54d0bf=document[_0x2c8cd1(0x1e9)](_0x2c8cd1(0x1fb))[_0x2c8cd1(0x1e7)],_0xd76053=document[_0x2c8cd1(0x1e9)]('resultArea'),_0x32798e=document['getElementById'](_0x2c8cd1(0x1c4));if(!_0x2e3ab6||!_0x54d0bf){alert(_0x2c8cd1(0x1d3));return;}const _0x2b256a=await encryptData(_0x2e3ab6,_0x54d0bf);_0x32798e['innerText']=_0x2b256a,_0xd76053[_0x2c8cd1(0x1fe)]['remove'](_0x2c8cd1(0x1ec));}function copyBlob(){const _0x2cedcc=_0x2d41e1,_0x566bb1=document['getElementById']('blobOutput')['innerText'];navigator[_0x2cedcc(0x1d9)]['writeText'](_0x566bb1),alert(_0x2cedcc(0x1ee));}init();
+</script>
+</body>
+</html>
